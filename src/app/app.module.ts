@@ -13,6 +13,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import {MatExpansionModule} from "@angular/material/expansion";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -32,9 +33,11 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatToolbarModule,
     MatFormFieldModule,
     MatExpansionModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
