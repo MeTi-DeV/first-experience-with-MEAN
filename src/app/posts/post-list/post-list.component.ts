@@ -10,7 +10,6 @@ import {Subscription} from "rxjs";
 })
 export class PostListComponent implements OnInit, OnDestroy {
   posts: Post[] = []
-  //comment 2 : use Subscription to save our post list data and destroyable catch memory of this component
   private postsSub: Subscription
 
   constructor(private postService: PostService) {
@@ -19,13 +18,11 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.posts = this.postService.getPosts()
-    //comment 1 : this way save our list on memory if component not working correctly
     this.postsSub = this.postService.getPostUpdateListener().subscribe((posts: Post[]) => {
       this.posts = posts
     })
   }
 
-  //comment 3 : for clean memory when component not execution
   ngOnDestroy() {
     this.postsSub.unsubscribe()
   }
