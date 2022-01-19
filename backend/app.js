@@ -1,31 +1,43 @@
 const express = require('express')
 const app = express()
-//comment 3 : It's CORS to access backend and frontend with different ports
-//angular is 4200 , node.js is 3000
+//commented 1 : body-parser is for pos data as json to server
+const bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', "*");
-  res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  next()
-})
-//comment 1 : create some data as server to get in client
-app.use("/api/posts", (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, DELETE, OPTIONS"
+  );
+  next();
+});
+
+//comment 2 : use post() method to send our client data to the server
+app.post("/api/posts", (req, res ,next) => {
+  //comment 3 : put that new data body to new variable like post
+  const post = req.body
+  res.status(201).json({
+    message: "it is data",post,
+  });
+});
+app.get("/api/posts", (req, res, next) => {
   const posts = [
     {
-      id: "ssdf54565",
-      title: "it's first post",
-      content: "it's from server"
-    }, {
-      id: "s45qwe65",
-      title: "it's second post",
-      content: "it's from server"
-    }, {
-      id: "qq45we46",
-      title: "it's Third",
-      content: "it's from server"
+      id: "fadf12421l",
+      title: "First server-side post",
+      content: "This is coming from the server"
     },
+    {
+      id: "ksajflaj132",
+      title: "Second server-side post",
+      content: "This is coming from the server!"
+    }
   ]
-  //comment 2 : after put data as json with message and all objects
   res.status(200).json({
     message: "success!",
     posts: posts

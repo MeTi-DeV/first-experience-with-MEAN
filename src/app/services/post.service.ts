@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {Subject} from "rxjs";
-//comment 1: add HttpClient also should add HttpClientModule in app.module.ts
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -9,28 +8,38 @@ import {HttpClient} from "@angular/common/http";
 export class PostService {
 
   private posts: Post[] = []
-  postUpdated = new Subject<Post[]>();
-//comment 2 : create http as property to get data from backend
+  private postUpdated = new Subject<Post[]>();
+
   constructor(private http: HttpClient) {
   }
+
   getPosts() {
-//comment 3 : to show list of data that created in app.js and connect to backend address and fetch data to frontend
-    this.http.get<{ message: string, posts: Post[] }>('http://localhost:3000/api/posts').subscribe(
+    this.http.get<{ message: string, posts: Post[] }>("http://localhost:3000/api/posts").subscribe(
       (postData) => {
         this.posts = postData.posts
+        this.postUpdated.next([...this.posts]);
       }
     )
   }
-
-  addPost(title: string, content: string) {
-    const post: Post = {id: '', title: title, content: title}
-    this.posts.push(post)
-    this.postUpdated.next([...this.posts])
-    console.log(this.posts);
-  }
-
-
   getPostUpdateListener() {
     return this.postUpdated.asObservable();
   }
+  addPost(title: string, content: string) {
+    const post: Post = { id:(Math.random()+25).toString(36).substring(7),title: title,content: content}
+    //comment 1 : here with HttpClient pass new data to backend as pos() method body that we save that in app.js
+    // as post
+    //this.http.post : first argument is server url and second is our new client values that user input that
+    //subscribe : subscribe body will execute if server url is correctly or input values is correctly
+    // and show them as post list
+    this.http.post("http://localhost:3000/api/posts",post).subscribe(
+      responseData => {
+console.log(post)
+        this.posts.push(post)
+        this.postUpdated.next([...this.posts])
+      }
+    )
+
+  }
+
+
 }

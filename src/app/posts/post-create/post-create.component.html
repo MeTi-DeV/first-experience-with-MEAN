@@ -2,13 +2,11 @@
   <form (submit)="onAddPost(postForm)" #postForm="ngForm">
     <mat-form-field appearance="fill">
       <mat-label>Enter your title</mat-label>
-      <input required matInput ngModel type="text" name="title">
-      <mat-error *ngIf="title.invalid">Please write a valid title</mat-error>
+      <input required ngModel matInput type="text" name="title">
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Enter your Description</mat-label>
       <textarea required ngModel matInput rows="4" name="content"></textarea>
-      <mat-error *ngIf="content.invalid">Please write a valid content</mat-error>
 
     </mat-form-field>
     <button type="submit" mat-raised-button color="accent" [disabled]="postForm.invalid" >Save</button>
