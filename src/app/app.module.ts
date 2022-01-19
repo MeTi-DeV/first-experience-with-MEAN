@@ -14,6 +14,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import {MatExpansionModule} from "@angular/material/expansion";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -23,19 +24,20 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     HeaderComponent,
     PostCreateComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    MatExpansionModule,
-    ReactiveFormsModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule,
+        MatToolbarModule,
+        MatFormFieldModule,
+        MatExpansionModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatIconModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
